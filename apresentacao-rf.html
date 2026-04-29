@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENCONTRO 4: Requisitos Funcionais (RF) - Engenharia de Requisitos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .controls {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .controls button {
+            background: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #667eea;
+            transition: all 0.3s;
+        }
+
+        .controls button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .export-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .export-options button {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .export-options button:hover {
+            background: #45a049;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: white;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 60px 80px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .slide.title-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            justify-content: space-around;
+        }
+
+        .slide.section-slide {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .slide.content-slide {
+            background: white;
+            color: #333;
+        }
+
+        .slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .slide h2 {
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            color: #667eea;
+        }
+
+        .slide h3 {
+            font-size: 1.8em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .slide ul, .slide ol {
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 1.8em;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 50px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 1.2em;
+            color: #999;
+        }
+
+        .content-slide .slide-number {
+            color: #667eea;
+        }
+
+        .table-container {
+            width: 100%;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #f0f0f0;
+        }
+
+        .comparison-box {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .comparison-item {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f5f5f5;
+        }
+
+        .comparison-item.before {
+            border-left: 5px solid #f44336;
+        }
+
+        .comparison-item.after {
+            border-left: 5px solid #4CAF50;
+        }
+
+        .comparison-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .highlight {
+            background: #fff9c4;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .diagram {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            border: 2px dashed #667eea;
+        }
+
+        .example-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196F3;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .example-box strong {
+            color: #1976D2;
+        }
+
+        .moscow-box {
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 5px solid;
+        }
+
+        .moscow-must {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+
+        .moscow-should {
+            background: #fff3e0;
+            border-color: #ff9800;
+        }
+
+        .moscow-could {
+            background: #f3e5f5;
+            border-color: #9c27b0;
+        }
+
+        .moscow-wont {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .moscow-box strong {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .task-list {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .task-list li {
+            background: white;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .print-style {
+            display: none;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .controls {
+                display: none;
+            }
+            .slide {
+                page-break-after: always;
+                opacity: 1 !important;
+                position: relative !important;
+                height: auto;
+                min-height: 100vh;
+                padding: 40px;
+            }
+        }
+
+        .subtitle-small {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .two-column {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .two-column > div {
+            flex: 1;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 20px;
+            width: 2px;
+            height: 30px;
+            background: #ddd;
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .req-card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .req-card strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+            }
+
+            .slide h1 {
+                font-size: 2em;
+            }
+
+            .slide h2 {
+                font-size: 1.8em;
+            }
+
+            .slide p, .slide li {
+                font-size: 1em;
+            }
+
+            .requirements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .two-column {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">20</span></span>
+            <button id="nextBtn" onclick="changeSlide(1)">Próximo →</button>
+            <div class="export-options">
+                <button onclick="downloadPDF()">📥 Download PDF</button>
+                <button onclick="alert('Funcionalidade PPTX disponível em breve. Use Print → Salvar como PDF por enquanto.')">📄 PPTX (Em Breve)</button>
+            </div>
+        </div>
+
+        <div class="slide-container">
+            <!-- SLIDE 1: Título -->
+            <div class="slide title-slide active">
+                <h1>ENCONTRO 4</h1>
+                <h2 style="color: white;">Requisitos Funcionais (RF)</h2>
+                <p class="subtitle">A Ponte Entre o Negócio e a Implementação</p>
+                <p class="subtitle-small">Engenharia de Requisitos - 4 Horas de Aprendizado Profundo</p>
+                <div class="slide-number">1</div>
+            </div>
+
+            <!-- SLIDE 2: A Transição Crítica - Parte 1 -->
+            <div class="slide content-slide">
+                <h2>1. A Transição Crítica: Do Porquê ao O Quê</h2>
+                <h3>A Jornada do Pensamento Estratégico</h3>
+                <p><strong>Regra de Negócio (RN):</strong> Responde ao <span class="highlight">PORQUÊ</span> - O objetivo estratégico</p>
+                <p><strong>Requisito Funcional (RF):</strong> Responde ao <span class="highlight">O QUÊ</span> - A função que realiza</p>
+                
+                <div class="diagram">
+                    <strong>RN → RF → CÓDIGO</strong><br>
+                    Visão Estratégica → Especificação Técnica → Implementação
+                </div>
+
+                <p style="margin-top: 20px; color: #f44336; font-weight: bold;">⚠️ Erro Comum: Confundir um requisito técnico com a razão pelo qual ele existe</p>
+                <div class="slide-number">2</div>
+            </div>
+
+            <!-- SLIDE 3: Exemplos Comparativos -->
+            <div class="slide content-slide">
+                <h2>Exemplos Comparativos: RN vs RF</h2>
+                <div class="requirements-grid">
+                    <div class="req-card">
+                        <strong>🏦 SISTEMA BANCÁRIO</strong>
+                        <p><strong>RN:</strong> "Minimizar fraudes e garantir conformidade regulatória"</p>
+                        <p><strong>RF:</strong> "O sistema deve validar transações contra regras de detecção de anomalias em tempo real"</p>
+                    </div>
+                    <div class="req-card">
+                        <strong>🛒 E-COMMERCE</strong>
+                        <p><strong>RN:</strong> "Aumentar conversão reduzindo atrito no checkout"</p>
+                        <p><strong>RF:</strong> "O sistema deve autofill de endereço a partir do CEP com validação IBGE"</p>
+                    </div>
+                    <div class="req-card">
+                        <strong>🏥 APP DE SAÚDE</strong>
+                        <p><strong>RN:</strong> "Garantir continuidade do cuidado médico"</p>
+                        <p><strong>RF:</strong> "O sistema deve sincronizar histórico médico entre dispositivos do paciente"</p>
+                    </div>
+                </div>
+                <div class="slide-number">3</div>
+            </div>
+
+            <!-- SLIDE 4: Anatomia do Requisito - Parte 1 -->
+            <div class="slide content-slide">
+                <h2>2. Anatomia do Requisito de Ouro</h2>
+                <h3>A Estrutura Técnica Obrigatória</h3>
+                <p>Um requisito profissional e testável segue esta sintaxe:</p>
+                <div class="diagram" style="background: white; border-color: #667eea;">
+                    <strong style="color: #667eea; font-size: 1.2em;">[Ator] + [Dever de Sistema] + [Ação] + [Objeto] + [Condição de Sucesso]</strong>
+                </div>
+
+                <div class="example-box" style="margin-top: 30px;">
+                    <strong>Exemplo:</strong> O <span class="highlight">usuário cliente</span> deve <span class="highlight">poder</span> 
+                    <span class="highlight">consultar</span> seu <span class="highlight">extrato bancário</span> 
+                    <span class="highlight">com precisão de 99.9% em menos de 2 segundos</span>.
+                </div>
+                <div class="slide-number">4</div>
+            </div>
+
+            <!-- SLIDE 5: Anatomia Decomposta -->
+            <div class="slide content-slide">
+                <h2>Decomposição da Anatomia</h2>
+                <h3>Elemento por Elemento</h3>
+                
+                <table>
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Função</th>
+                        <th>Exemplo</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Ator</strong></td>
+                        <td>Quem interage com o sistema</td>
+                        <td>Cliente, Gerente, Sistema Externo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dever de Sistema</strong></td>
+                        <td>Obrigatoriedade do sistema</td>
+                        <td>deve, pode, não deve</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ação</strong></td>
+                        <td>Verbo específico (testável)</td>
+                        <td>consultar, calcular, gerar, validar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Objeto</strong></td>
+                        <td>O que é manipulado</td>
+                        <td>extrato, saldo, relatório</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Condição de Sucesso</strong></td>
+                        <td>Critério de aceitação testável</td>
+                        <td>em tempo real, com 99.9% precisão</td>
+                    </tr>
+                </table>
+                <div class="slide-number">5</div>
+            </div>
+
+            <!-- SLIDE 6: Antes e Depois -->
+            <div class="slide content-slide">
+                <h2>Tabela de Transformação: Antes e Depois</h2>
+                <h3>Convertendo Requisitos Amadores em Profissionais</h3>
+                
+                <table>
+                    <tr>
+                        <th>❌ Requisito Inadequado</th>
+                        <th>✅ Requisito Profissional</th>
+                    </tr>
+                    <tr>
+                        <td>"O sistema deve ser rápido"</td>
+                        <td>"O sistema deve processar consultas em ≤ 500ms"</td>
+                    </tr>
+                    <tr>
+                        <td>"Melhorar a experiência do usuário"</td>
+                        <td>"O usuário deve completar login em máx 3 cliques"</td>
+                    </tr>
+                    <tr>
+                        <td>"Integração com banco de dados"</td>
+                        <td>"O sistema deve sincronizar dados com BD em cada transação com confirmação ACID"</td>
+                    </tr>
+                    <tr>
+                        <td>"Gerar relatórios úteis"</td>
+                        <td>"O gestor deve exportar relatório de vendas em PDF com gráficos em até 5s"</td>
+                    </tr>
+                    <tr>
+                        <td>"Segurança no sistema"</td>
+                        <td>"O sistema deve criptografar senhas com bcrypt + salt aleatório de 12 rounds"</td>
+                    </tr>
+                </table>
+                <div class="slide-number">6</div>
+            </div>
+
+            <!-- SLIDE 7: Critérios de Ouro -->
+            <div class="slide content-slide">
+                <h2>Os 5 Critérios de Ouro de um RF</h2>
+                <h3>Como Identificar um Requisito de Qualidade</h3>
+                
+                <ul>
+                    <li><strong>1. Verificável:</strong> Pode ser testado? Existe forma de medir?</li>
+                    <li><strong>2. Rastreável:</strong> Pode ser ligado a uma regra de negócio?</li>
+                    <li><strong>3. Não-ambíguo:</strong> Todos entendem igual?</li>
+                    <li><strong>4. Completo:</strong> Ator, ação, objeto e condição presentes?</li>
+                    <li><strong>5. Realizável:</strong> É tecnicamente possível dentro de prazo/orçamento?</li>
+                </ul>
+
+                <div class="example-box">
+                    <strong>Pergunta Chave:</strong> Se mostro este requisito para 5 desenvolvedores diferentes, eles escrevem o mesmo código?
+                </div>
+                <div class="slide-number">7</div>
+            </div>
+
+            <!-- SLIDE 8: Categorização - Dados -->
+            <div class="slide content-slide">
+                <h2>3. Categorização de Requisitos Funcionais</h2>
+                <h3>Tipo 1: Requisitos de Dados</h3>
+                <p>Definem <span class="highlight">o que o sistema armazena</span> e <span class="highlight">como acessa</span></p>
+                
+                <div class="example-box">
+                    <strong>RF.D.001:</strong> O sistema deve armazenar dados de clientes (nome, CPF, endereço, telefone) em tabela relacional normalizada.
+                </div>
+                <div class="example-box">
+                    <strong>RF.D.002:</strong> O sistema deve permitir busca de produtos por nome, categoria, preço com resposta em ≤ 1 segundo.
+                </div>
+
+                <p style="margin-top: 30px; color: #666;"><strong>Inclui:</strong> Estrutura de dados, validações, integridade, constraints, índices para performance.</p>
+                <div class="slide-number">8</div>
+            </div>
+
+            <!-- SLIDE 9: Categorização - Processamento e Interface -->
+            <div class="slide content-slide">
+                <h2>Categorização (continuação)</h2>
+                <h3>Tipo 2: Requisitos de Processamento</h3>
+                <p><span class="highlight">Lógica de negócio</span> - Como o sistema transforma dados</p>
+                
+                <div class="example-box">
+                    <strong>RF.P.001:</strong> O sistema deve calcular automaticamente o frete baseado em CEP, peso e dimensão da caixa, usando tabela SEDEX 2024.
+                </div>
+
+                <h3>Tipo 3: Requisitos de Interface (Lógica)</h3>
+                <p><span class="highlight">Interação usuário-sistema</span> - Como o usuário dispara ações</p>
+
+                <div class="example-box">
+                    <strong>RF.I.001:</strong> O cliente deve visualizar carrinho atualizado em tempo real conforme adiciona/remove produtos, com total de preço recalculado.
+                </div>
+                <div class="slide-number">9</div>
+            </div>
+
+            <!-- SLIDE 10: Categorização - Saída -->
+            <div class="slide content-slide">
+                <h2>Categorização (conclusão)</h2>
+                <h3>Tipo 4: Requisitos de Saída (Relatórios)</h3>
+                <p><span class="highlight">Dados entregues ao usuário</span> - Formato, frequência, conteúdo</p>
+                
+                <div class="example-box">
+                    <strong>RF.S.001:</strong> O gestor deve receber relatório diário de vendas em PDF via email às 8h, contendo: total de vendas, ticket médio, produtos top-5, gráfico de tendência.
+                </div>
+
+                <h3>Resumo das 4 Categorias</h3>
+                <table style="font-size: 0.95em;">
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Foco</th>
+                        <th>Pergunta-Chave</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Dados (D)</strong></td>
+                        <td>O quê armazenar</td>
+                        <td>Quais dados e estruturas?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Processamento (P)</strong></td>
+                        <td>Como transformar</td>
+                        <td>Qual a lógica?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interface (I)</strong></td>
+                        <td>Como interagir</td>
+                        <td>Como o usuário usa?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Saída (S)</strong></td>
+                        <td>Como entregar</td>
+                        <td>Que informação sai?</td>
+                    </tr>
+                </table>
+                <div class="slide-number">10</div>
+            </div>
+
+            <!-- SLIDE 11: MoSCoW - Fundamentos -->
+            <div class="slide content-slide">
+                <h2>4. Metodologia MoSCoW na Prática</h2>
+                <h3>Muito Além da Sigla</h3>
+                
+                <p>MoSCoW não é apenas um acrônimo. É uma <span class="highlight">estratégia de decisão</span> que responde:</p>
+                <p style="font-style: italic; margin: 20px 0; text-align: center; font-size: 1.1em;">
+                    "Com recurso X, em prazo Y, qual requisito sacrificamos primeiro?"
+                </p>
+
+                <div class="moscow-box moscow-must">
+                    <strong>M - MUST (Deve ter)</strong>
+                    Sem isso, o projeto <span class="highlight">fracassa</span>. É a viabilidade básica. Impacto: 🔴🔴🔴
+                </div>
+
+                <div class="moscow-box moscow-should">
+                    <strong>S - SHOULD (Deveria ter)</strong>
+                    Muito importante, mas pode esperar iteração futura. Impacto: 🟠🟠
+                </div>
+
+                <div class="moscow-box moscow-could">
+                    <strong>C - COULD (Poderia ter)</strong>
+                    Nice-to-have. Se sobrar tempo/dinheiro. Impacto: 🟡
+                </div>
+
+                <div class="moscow-box moscow-wont">
+                    <strong>W - WON'T (Não terá)</strong>
+                    Explicitamente descartado nesta iteração. Impacto: ⚪
+                </div>
+
+                <div class="slide-number">11</div>
+            </div>
+
+            <!-- SLIDE 12: MoSCoW - Impacto Financeiro -->
+            <div class="slide content-slide">
+                <h2>Impacto Financeiro e de Prazo</h2>
+                <h3>Como Cada Categoria Afeta o Projeto</h3>
+                
+                <table style="font-size: 0.9em;">
+                    <tr>
+                        <th>MoSCoW</th>
+                        <th>Impacto de Prazo</th>
+                        <th>Impacto Financeiro</th>
+                        <th>Risco</th>
+                    </tr>
+                    <tr>
+                        <td><strong>MUST</strong></td>
+                        <td>Crítico - atraso afeta tudo</td>
+                        <td>Orçamento base + contingência</td>
+                        <td>Alto: cancelamento se não entregar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SHOULD</strong></td>
+                        <td>Importante - pode impactar ROI</td>
+                        <td>+20-40% do orçamento base</td>
+                        <td>Médio: satisfação cliente reduz</td>
+                    </tr>
+                    <tr>
+                        <td><strong>COULD</strong></td>
+                        <td>Flexível - ajusta com folga de prazo</td>
+                        <td>+5-15%, geralmente descartado</td>
+                        <td>Baixo: polimento apenas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>WON'T</strong></td>
+                        <td>Sem impacto nesta iteração</td>
+                        <td>Zero neste ciclo</td>
+                        <td>Nenhum: planejado para futuro</td>
+                    </tr>
+                </table>
+
+                <p style="margin-top: 20px; color: #f44336;"><strong>⚠️ Regra de Ouro:</strong> MUST deve ser 30-40% do escopo. Se tiver mais, seu projeto está em risco.</p>
+                <div class="slide-number">12</div>
+            </div>
+
+            <!-- SLIDE 13: MoSCoW - Decisão -->
+            <div class="slide content-slide">
+                <h2>Como um Analista Decide?</h2>
+                <h3>A Árvore de Decisão MoSCoW</h3>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>1. Viabilidade Crítica?</strong><br>
+                        SIM → MUST | NÃO → próxima pergunta
+                    </div>
+                    <div class="timeline-item">
+                        <strong>2. ROI ou Conformidade?</strong><br>
+                        SIM → SHOULD | NÃO → próxima pergunta
+                    </div>
+                    <div class="timeline-item">
+                        <strong>3. Tempo disponível?</strong><br>
+                        SIM → COULD | NÃO → WON'T
+                    </div>
+                    <div class="timeline-item">
+                        <strong>4. Valor Real vs Esforço?</strong><br>
+                        Valor > Esforço × 2 → considerar SHOULD
+                    </div>
+                </div>
+
+                <div class="example-box" style="margin-top: 30px;">
+                    <strong>Exemplo - App de Saúde:</strong><br>
+                    • Login seguro = MUST (sem isso, falha)<br>
+                    • Histórico completo = SHOULD (importante mas não inviabiliza)<br>
+                    • Tema customizável = COULD (bom ter)<br>
+                    • Integração com wearable = WON'T (próxima versão)
+                </div>
+                <div class="slide-number">13</div>
+            </div>
+
+            <!-- SLIDE 14: Cenário de Crise -->
+            <div class="slide content-slide">
+                <h2>Cenário de Crise: Prazo Reduzido</h2>
+                <h3>Como Sacrificar Requisitos Inteligentemente</h3>
+                
+                <p><strong>Situação Real:</strong> Projeto de 6 meses, prazo reduzido para 3. O que fazer?</p>
+
+                <h3 style="margin-top: 30px;">Estratégia de Corte</h3>
+                <ol>
+                    <li><strong>Primeiro corte:</strong> Todos os WON'T automático → ganho 0% (já não eram planos)</li>
+                    <li><strong>Segundo corte:</strong> 70% dos COULD → ganho ~10-15% de tempo</li>
+                    <li><strong>Terceiro corte:</strong> 40% dos SHOULD → ganho ~15-20% de tempo (risco: 20% redução ROI)</li>
+                    <li><strong>Último recurso:</strong> Renegociar MUST ou splittar em MVP + v1.1</li>
+                </ol>
+
+                <div class="moscow-box moscow-must" style="margin-top: 20px;">
+                    <strong>Nunca Sacrifique MUST</strong><br>
+                    Se precisar cortar MUST, você não tem um projeto viável. Hora de replanejar escopo ou prazo.
+                </div>
+                <div class="slide-number">14</div>
+            </div>
+
+            <!-- SLIDE 15: Rastreabilidade - Fundamento -->
+            <div class="slide content-slide">
+                <h2>5. Rastreabilidade Obrigatória</h2>
+                <h3>Por Que Todo RF Precisa de uma RN Pai</h3>
+                
+                <p>Rastreabilidade é a <span class="highlight">corrente que liga Negócio → Requisito → Código</span></p>
+
+                <div class="diagram">
+                    <strong>RN01</strong> → Aumentar receita em 20%<br>
+                    ↓<br>
+                    <strong>RF01</strong> → Criar recomendação de produtos<br>
+                    ↓<br>
+                    <strong>Código</strong> → Algoritmo machine learning
+                </div>
+
+                <div class="example-box">
+                    <strong>Benefícios:</strong><br>
+                    ✓ Saber POR QUÊ cada requisito existe<br>
+                    ✓ Identificar requisitos órfãos (feature creep)<br>
+                    ✓ Validar mudanças: "se mudar RF01, muda RN01?"<br>
+                    ✓ Facilitar cortes: "WON'T RF03 → atrasado? Cancela sem culpa"
+                </div>
+                <div class="slide-number">15</div>
+            </div>
+
+            <!-- SLIDE 16: Como Numerar e Rastrear -->
+            <div class="slide content-slide">
+                <h2>Prática: Numeração e Rastreamento</h2>
+                <h3>Sistema Profissional de Identificação</h3>
+                
+                <h3 style="border: none; margin-top: 0; margin-bottom: 15px;">Formato Recomendado</h3>
+                <div class="diagram" style="background: white; font-size: 1.1em;">
+                    <strong style="color: #667eea;">RN[Módulo][Sequência] → RF[Módulo][Sequência]</strong><br>
+                    Exemplo: <strong>RN.01.02 → RF.01.02</strong> (Módulo 1, Requisito 2)
+                </div>
+
+                <table style="margin-top: 20px; font-size: 0.9em;">
+                    <tr>
+                        <th>ID</th>
+                        <th>Descrição</th>
+                        <th>Rastreabilidade</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td><strong>RN.01.01</strong></td>
+                        <td>Reduzir fraude bancária</td>
+                        <td>—</td>
+                        <td>Ativa</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RF.01.01</strong></td>
+                        <td>Validar transação em IA</td>
+                        <td>← RN.01.01</td>
+                        <td>Desenvolvimento</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RF.01.02</strong></td>
+                        <td>Bloquear transação suspeita</td>
+                        <td>← RN.01.01</td>
+                        <td>Teste</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RF.01.99</strong></td>
+                        <td>Dashboard de analytics</td>
+                        <td>❌ ÓRFÃO</td>
+                        <td>Cancelada</td>
+                    </tr>
+                </table>
+
+                <p style="margin-top: 20px; color: #f44336;"><strong>⚠️ RF sem RN = Feature Creep</strong> (requisito que ninguém pediu)</p>
+                <div class="slide-number">16</div>
+            </div>
+
+            <!-- SLIDE 17: Matriz de Rastreabilidade -->
+            <div class="slide content-slide">
+                <h2>Matriz de Rastreabilidade Completa</h2>
+                <h3>Ferramenta Executiva</h3>
+                
+                <p>Uma matriz que mostra a cobertura de cada requisito de negócio:</p>
+
+                <table style="font-size: 0.85em; margin-top: 20px;">
+                    <tr>
+                        <th>RN ID</th>
+                        <th>Descrição RN</th>
+                        <th>RF Associados</th>
+                        <th>Cobertura %</th>
+                        <th>Status Teste</th>
+                    </tr>
+                    <tr>
+                        <td><strong>RN.02.01</strong></td>
+                        <td>Aumentar conversão checkout</td>
+                        <td>RF.02.01, RF.02.02, RF.02.03</td>
+                        <td>100%</td>
+                        <td>✅ Passou</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RN.02.02</strong></td>
+                        <td>Integração pagamento</td>
+                        <td>RF.02.04, RF.02.05</td>
+                        <td>80%</td>
+                        <td>🔄 Em Teste</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RN.02.03</strong></td>
+                        <td>Suporte multi-moeda</td>
+                        <td>—</td>
+                        <td>0%</td>
+                        <td>⏸️ WON'T v1</td>
+                    </tr>
+                </table>
+
+                <div class="example-box" style="margin-top: 20px;">
+                    <strong>Uso na Reunião:</strong> "RN.02.02 está em 80%? O que falta?" Isso é rastreabilidade em ação!
+                </div>
+                <div class="slide-number">17</div>
+            </div>
+
+            <!-- SLIDE 18: Laboratório - Parte 1 -->
+            <div class="slide content-slide">
+                <h2>6. Oficina de Laboratório (Atividade Prática)</h2>
+                <h3>Roteiro Passo a Passo - Parte 1</h3>
+                
+                <h3 style="border: none;">🎯 Objetivo</h3>
+                <p>Transformar RNs superficiais em RFs profissionais, categorizados, priorizados e rastreáveis.</p>
+
+                <h3>📋 Entregáveis Esperados</h3>
+                <ol>
+                    <li>Planilha Excel com 15-20 RFs específicos do seu projeto</li>
+                    <li>Cada RF seguindo a estrutura: [Ator] + [Dever] + [Ação] + [Objeto] + [Condição]</li>
+                    <li>Categorização: D (Dados), P (Processamento), I (Interface), S (Saída)</li>
+                    <li>Priorização MoSCoW com justificativa</li>
+                    <li>Rastreabilidade 1:N com RNs</li>
+                </ol>
+
+                <p style="margin-top: 20px; background: #fff9c4; padding: 15px; border-radius: 5px;">
+                    <strong>Tempo:</strong> 2 horas de trabalho em grupo (máx 4 pessoas)
+                </p>
+                <div class="slide-number">18</div>
+            </div>
+
+            <!-- SLIDE 19: Laboratório - Parte 2 -->
+            <div class="slide content-slide">
+                <h2>Oficina de Laboratório - Parte 2</h2>
+                <h3>Estrutura da Planilha de Entrega</h3>
+                
+                <table style="font-size: 0.85em;">
+                    <tr>
+                        <th>Coluna</th>
+                        <th>Formato</th>
+                        <th>Exemplo</th>
+                    </tr>
+                    <tr>
+                        <td><strong>ID</strong></td>
+                        <td>RF.MOD.###</td>
+                        <td>RF.02.001</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RN Pai</strong></td>
+                        <td>RN.MOD.###</td>
+                        <td>RN.02.001</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Título</strong></td>
+                        <td>Frase curta (< 10 palavras)</td>
+                        <td>"Validar CPF do cliente"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Descrição Técnica</strong></td>
+                        <td>[Ator]+[Dever]+[Ação]+[Objeto]+[Condição]</td>
+                        <td>"O cliente deve validar CPF com algoritmo oficial em ≤ 1s"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Categoria</strong></td>
+                        <td>D / P / I / S</td>
+                        <td>D (Dado)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MoSCoW</strong></td>
+                        <td>M / S / C / W</td>
+                        <td>M (Must)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Critério Teste</strong></td>
+                        <td>Condição verificável</td>
+                        <td>"CPF válido? Passou. CPF inválido? Rejeitou."</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Complexidade</strong></td>
+                        <td>Baixa / Média / Alta</td>
+                        <td>Baixa</td>
+                    </tr>
+                </table>
+
+                <div class="slide-number">19</div>
+            </div>
+
+            <!-- SLIDE 20: Laboratório - Conclusão -->
+            <div class="slide content-slide">
+                <h2>Oficina de Laboratório - Parte 3</h2>
+                <h3>Checklist de Qualidade Antes de Entregar</h3>
+                
+                <div class="task-list">
+                    <ul>
+                        <li>☐ Cada RF tem um ator identificado (pessoa ou sistema)?</li>
+                        <li>☐ Nenhum RF usa palavras vagas ("rápido", "bom", "melhor")?</li>
+                        <li>☐ Cada RF pode ser testado por um QA ou automatizado?</li>
+                        <li>☐ Todo RF tem uma RN pai justificando sua existência?</li>
+                        <li>☐ A priorização MoSCoW foi consenso do grupo?</li>
+                        <li>☐ RFs foram categorizados em D / P / I / S?</li>
+                        <li>☐ Requisitos conflitantes foram identificados e anotados?</li>
+                        <li>☐ Pelo menos 5 RFs estão marcados como MUST?</li>
+                    </ul>
+                </div>
+
+                <h3>📊 Critério de Aprovação</h3>
+                <p><strong>Mínimo 70% dos requisitos devem passar em todos os 8 critérios acima</strong></p>
+
+                <p style="margin-top: 20px; text-align: center; font-weight: bold; color: #667eea;">
+                    Próximo Encontro: Análise de Rastreabilidade e Conflitos em RFs
+                </p>
+                <div class="slide-number">20</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = document.querySelectorAll('.slide').length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) currentSlide = totalSlides;
+            if (n < 1) currentSlide = 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Navegação por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Download PDF
+        function downloadPDF() {
+            const element = document.querySelector('.slide-container');
+            const slides = document.querySelectorAll('.slide');
+            const filename = 'Apresentacao_RF_Encontro4.pdf';
+
+            const opt = {
+                margin: 5,
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            };
+
+            // Mostrar status
+            alert('PDF será gerado. Aguarde...');
+            
+            let pdfContent = '';
+            slides.forEach((slide, index) => {
+                pdfContent += slide.outerHTML;
+            });
+
+            html2pdf().set(opt).from(pdfContent).save();
+        }
+
+        // Inicializar
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

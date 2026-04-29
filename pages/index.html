@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Documentação - Requisitos Funcionais</title>
+    
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .docs-header {
+            background: white;
+            padding: 40px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .docs-header .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .docs-header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .docs-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .doc-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .doc-card-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .doc-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .doc-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .doc-card a {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .doc-card a:hover {
+            border-bottom-color: #667eea;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="docs-header">
+        <div class="wrapper">
+            <h1>📚 Centro de Documentação</h1>
+            <p style="color: #666; margin-bottom: 0;">Encontro 4: Requisitos Funcionais (RF) - Engenharia de Requisitos</p>
+        </div>
+    </div>
+
+    <!-- CARDS DE DOCUMENTAÇÃO -->
+    <div class="docs-grid">
+        <!-- Card 1: Apresentação -->
+        <div class="doc-card">
+            <div class="doc-card-icon">📊</div>
+            <h3>Apresentação Completa</h3>
+            <p>20 slides com toda teoria: transição crítica, anatomia, categorização, MoSCoW, rastreabilidade e laboratório.</p>
+            <a href="./apresentacao.html">Acessar Apresentação →</a>
+        </div>
+
+        <!-- Card 2: Infográfico -->
+        <div class="doc-card">
+            <div class="doc-card-icon">📋</div>
+            <h3>Guia Visual (Infográfico)</h3>
+            <p>10 cards visuais prontos para imprimir e colar na parede. Referência rápida para a sala.</p>
+            <a href="./infografico.html">Ver Infográfico →</a>
+        </div>
+
+        <!-- Card 3: Guia do Professor -->
+        <div class="doc-card">
+            <div class="doc-card-icon">👨‍🏫</div>
+            <h3>Guia do Professor</h3>
+            <p>Plano detalhado de 4 horas com timings, técnicas de engajamento e notas de facilitação.</p>
+            <a href="../documentos/guia-professor-rf.md" target="_blank">Baixar PDF →</a>
+        </div>
+
+        <!-- Card 4: Exemplos Profissionais -->
+        <div class="doc-card">
+            <div class="doc-card-icon">💼</div>
+            <h3>30+ Exemplos de RF</h3>
+            <p>Requisitos reais de 5 domínios: Banking, E-commerce, Healthcare, IoT, Marketplace.</p>
+            <a href="../documentos/exemplos-rf-profissionais.md" target="_blank">Ver Exemplos →</a>
+        </div>
+
+        <!-- Card 5: Template Laboratório -->
+        <div class="doc-card">
+            <div class="doc-card-icon">🔬</div>
+            <h3>Template Laboratório</h3>
+            <p>Atividade prática com case de e-commerce. Guia passo-a-passo para QA e Devs testarem RFs.</p>
+            <a href="../documentos/template-laboratorio-rf.md" target="_blank">Acessar Template →</a>
+        </div>
+
+        <!-- Card 6: Dinâmicas de Aula -->
+        <div class="doc-card">
+            <div class="doc-card-icon">🎯</div>
+            <h3>10 Dinâmicas Interativas</h3>
+            <p>Atividades lúdicas para engajar turma: jogo das vagas, role-play, análise crítica em grupo.</p>
+            <a href="../documentos/dinamicas-atividades-rf.md" target="_blank">Ver Dinâmicas →</a>
+        </div>
+
+        <!-- Card 7: Cola do Professor -->
+        <div class="doc-card">
+            <div class="doc-card-icon">📝</div>
+            <h3>Cola do Professor (1 Página)</h3>
+            <p>Resumo super compacto com tópicos-chave, estrutura, MoSCoW e frases-poder para consultório rápido.</p>
+            <a href="../documentos/COLA-PROFESSOR-CHEAT-SHEET.md" target="_blank">Imprimir →</a>
+        </div>
+
+        <!-- Card 8: README -->
+        <div class="doc-card">
+            <div class="doc-card-icon">ℹ️</div>
+            <h3>Documentação Técnica</h3>
+            <p>Visão geral do projeto, estrutura de pastas, como executar e estender o material.</p>
+            <a href="../documentos/README.md" target="_blank">Ler README →</a>
+        </div>
+    </div>
+
+    <!-- NAVEGAÇÃO RÁPIDA -->
+    <div class="container" style="background: white; padding: 40px 20px; margin-top: 40px; border-radius: 12px;">
+        <h2 style="color: #667eea; text-align: center; margin-bottom: 30px;">🚀 Acesso Rápido</h2>
+        
+        <div style="max-width: 600px; margin: 0 auto;">
+            <h3 style="color: #333; margin-bottom: 15px;">Estou preparando a aula:</h3>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li>1️⃣ Leia o <a href="../documentos/guia-professor-rf.md" style="color: #667eea; font-weight: bold;">Guia do Professor</a></li>
+                <li>2️⃣ Imprima a <a href="../documentos/COLA-PROFESSOR-CHEAT-SHEET.md" style="color: #667eea; font-weight: bold;">Cola (1 página)</a></li>
+                <li>3️⃣ Escolha <a href="../documentos/dinamicas-atividades-rf.md" style="color: #667eea; font-weight: bold;">Dinâmicas</a> para usar</li>
+                <li>4️⃣ Prepare exemplos da <a href="../documentos/exemplos-rf-profissionais.md" style="color: #667eea; font-weight: bold;">sua indústria</a></li>
+            </ul>
+
+            <h3 style="color: #333; margin-top: 40px; margin-bottom: 15px;">Estou em sala de aula:</h3>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li>📊 Rode a <a href="./apresentacao.html" style="color: #667eea; font-weight: bold;">apresentação</a></li>
+                <li>📋 Exiba o <a href="./infografico.html" style="color: #667eea; font-weight: bold;">infográfico</a> na tela (imprima cópias)</li>
+                <li>🔬 Faça o <a href="../documentos/template-laboratorio-rf.md" style="color: #667eea; font-weight: bold;">laboratório</a> nos últimos 30 min</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>📚 Engenharia de Requisitos - SENAI Brasília 2024</p>
+        <p style="font-size: 0.9em; opacity: 0.8;">Projeto refatorado com arquitetura modular, arquivos separados e código bem estruturado ✨</p>
+    </div>
+</body>
+</html>

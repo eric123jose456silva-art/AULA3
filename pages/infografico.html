@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico RF - Guia Rápido Visual</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/infografico.css">
+</head>
+<body>
+    <div class="infografico-container">
+        <div class="wrapper">
+            <!-- HEADER -->
+            <div class="infografico-header">
+                <h1>📋 ENCONTRO 4: Requisitos Funcionais (RF)</h1>
+                <p>Guia Visual Rápido - Cole na Parede da Sala! 📌</p>
+            </div>
+
+            <!-- GRID DE CARDS -->
+            <div class="infografico-grid">
+                <!-- Card 1: Anatomia -->
+                <div class="infografico-card">
+                    <div class="infografico-card-title">🔨 Anatomia de RF (OBRIGATÓRIA)</div>
+                    <div class="infografico-card-content">
+                        <p>Todo requisito profissional segue este padrão:</p>
+                        <div class="anatomy-box">
+                            [Ator] + [Dever] + [Ação] + [Objeto] + [Condição]
+                        </div>
+                        <div class="example-display">
+                            <strong>Exemplo Correto:</strong><br>
+                            O cliente + deve + validar + CPF + em &lt; 1s
+                        </div>
+                        <div class="warning-display">
+                            <strong>⚠️ Sem um destes 5 elementos = RF ruim!</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Categorias -->
+                <div class="infografico-card">
+                    <div class="infografico-card-title">📊 4 Categorias de RF</div>
+                    <div class="infografico-card-content">
+                        <div class="categories-display">
+                            <div class="category-display">
+                                <strong style="color: #1976D2;">D</strong><br>
+                                <span style="font-size: 0.85em;">DADOS</span>
+                            </div>
+                            <div class="category-display">
+                                <strong style="color: #f57c00;">P</strong><br>
+                                <span style="font-size: 0.85em;">PROCESSAMENTO</span>
+                            </div>
+                            <div class="category-display">
+                                <strong style="color: #388e3c;">I</strong><br>
+                                <span style="font-size: 0.85em;">INTERFACE</span>
+                            </div>
+                            <div class="category-display">
+                                <strong style="color: #7b1fa2;">S</strong><br>
+                                <span style="font-size: 0.85em;">SAÍDA</span>
+                            </div>
+                        </div>
+
+                        <p style="margin-top: 15px;">
+                            <strong>D:</strong> O quê armazenar<br>
+                            <strong>P:</strong> Como transformar<br>
+                            <strong>I:</strong> Como interagir<br>
+                            <strong>S:</strong> Que informação entrega
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: MoSCoW -->
+                <div class="infografico-card">
+                    <div class="infografico-card-title">⭐ Priorização MoSCoW</div>
+                    <div class="infografico-card-content">
+                        <div class="moscow-grid">
+                            <div class="moscow-display moscow-m">M<br>MUST<br>30-40%</div>
+                            <div class="moscow-display moscow-s">S<br>SHOULD<br>30-40%</div>
+                            <div class="moscow-display moscow-c">C<br>COULD<br>10-20%</div>
+                            <div class="moscow-display moscow-w">W<br>WON'T<br>Futuro</div>
+                        </div>
+
+                        <p style="margin-top: 15px; font-size: 0.9em;">
+                            <strong>M:</strong> Viabilidade básica (fracassa sem)<br>
+                            <strong>S:</strong> Valor importante<br>
+                            <strong>C:</strong> Nice-to-have<br>
+                            <strong>W:</strong> Descartado nesta fase
+                        </p>
+
+                        <div class="warning-display" style="margin-top: 15px; font-size: 0.9em;">
+                            ⚠️ Se MUST &gt; 50%, projeto em risco!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Rastreabilidade -->
+                <div class="infografico-card">
+                    <div class="infografico-card-title">🔗 Rastreabilidade (ESSENCIAL)</div>
+                    <div class="infografico-card-content">
+                        <p>Cada RF deve ter uma RN (Regra de Negócio) pai:</p>
+
+                        <div class="example-display">
+                            <strong>RN.01.001:</strong> Aumentar receita<br>
+                            ↓<br>
+                            <strong>RF.01.001:</strong> Validar pagamento<br>
+                            ↓<br>
+                            <strong>Código:</strong> validarPagamento()
+                        </div>
+
+                        <div class="warning-display">
+                            <strong>🚨 RF SEM RN PAI = ÓRFÃO</strong><br>
+                            Ninguém pediu! Feature Creep!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Sinais de Alerta -->
+                <div class="infografico-card">
+                    <div class="infografico-card-title">🔴 Sinais de Alerta (RF Ruim)</div>
+                    <div class="infografico-card-content">
+                        <ul style="margin-left: 20px; color: #d32f2f; font-weight: bold;">
+                            <li>"deve ser rápido" ← Vago!</li>
+                            <li>"melhorar UX" ← Genérico!</li>
+                            <li>"integração BD" ← Sem ator!</li>
+                            <li>"gerenciar vendas" ← Grande demais!</li>
+                            <li>Sem RN pai ← ÓRFÃO!</li>
+                            <li>Teste ambíguo ← Talvez? Não!</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 6: Sinais de Ouro -->
+                <div class="infografico-card">
+                    <div class="infografico-card-title">🟢 Sinais de Ouro (RF Bom)</div>
+                    <div class="infografico-card-content">
+                        <ul style="margin-left: 20px; color: #388e3c; font-weight: bold;">
+                            <li>✅ Ator identificado</li>
+                            <li>✅ Verbo específico (validar, calcular, enviar)</li>
+                            <li>✅ Métrica/Condição testável</li>
+                            <li>✅ Ligado a RN pai</li>
+                            <li>✅ Resultado binário: Passou ou Falhou</li>
+                        </ul>
+
+                        <div class="success-display" style="margin-top: 15px;">
+                            ✨ Se RF tem estes 5 = PROFISSIONAL
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: VRNCR -->
+                <div class="infografico-card">
+                    <div class="infografico-card-title">🏆 5 Critérios de Ouro (VRNCR)</div>
+                    <div class="infografico-card-content">
+                        <div class="timeline-display">
+                            <div class="timeline-step">
+                                <div class="timeline-content">
+                                    <strong>V - Verificável</strong>
+                                    Pode ser testado? Existe forma de medir?
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-content">
+                                    <strong>R - Rastreável</strong>
+                                    Pode ser ligado a uma regra de negócio?
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-content">
+                                    <strong>N - Não-ambíguo</strong>
+                                    Todos entendem igual?
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-content">
+                                    <strong>C - Completo</strong>
+                                    Tem ator, dever, ação, objeto, condição?
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-content">
+                                    <strong>R - Realizável</strong>
+                                    É tecnicamente possível?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: Checklist -->
+                <div class="infografico-card">
+                    <div class="infografico-card-title">✅ Checklist de Qualidade</div>
+                    <div class="infografico-card-content">
+                        <div class="checklist-display">
+                            <ul>
+                                <li>Cada RF tem um ator identificado?</li>
+                                <li>Nenhum RF usa palavras vagas?</li>
+                                <li>Cada RF é testável por QA?</li>
+                                <li>Todo RF tem uma RN pai?</li>
+                                <li>MoSCoW foi consensuado?</li>
+                                <li>RFs categorizados D/P/I/S?</li>
+                                <li>Conflitos foram identificados?</li>
+                                <li>Pelo menos 5 RFs MUST?</li>
+                            </ul>
+                        </div>
+                        <p style="margin-top: 15px; color: #667eea; font-weight: bold;">
+                            ≥ 70% = APROVADO ✓
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 9: Comparação -->
+                <div class="infografico-card">
+                    <div class="infografico-card-title">❌ vs ✅ Exemplos Reais</div>
+                    <div class="infografico-card-content">
+                        <p><strong>❌ Ruim:</strong> "O sistema deve processar transações rápido"</p>
+                        <p><strong>✅ Bom:</strong> "O sistema deve processar transação em &lt; 500ms com 99.9% uptime"</p>
+
+                        <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+
+                        <p><strong>❌ Ruim:</strong> "Melhorar experiência do usuário"</p>
+                        <p><strong>✅ Bom:</strong> "Cliente completa login em máx 3 cliques com tempo ≤ 2 segundos"</p>
+
+                        <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+
+                        <p><strong>❌ Ruim:</strong> "Integração com banco de dados"</p>
+                        <p><strong>✅ Bom:</strong> "Sistema sincroniza dados com BD em cada transação com confirmação ACID"</p>
+                    </div>
+                </div>
+
+                <!-- Card 10: Frases-Poder -->
+                <div class="infografico-card full-width">
+                    <div class="infografico-card-title">💪 Frases-Poder (Use na Aula!)</div>
+                    <div class="infografico-card-content">
+                        <div class="example-display">
+                            "Um RF vago custa 10x mais no futuro"
+                        </div>
+                        <div class="example-display">
+                            "Se 5 devs diferentes entendem diferente, RF está vago"
+                        </div>
+                        <div class="example-display">
+                            "RF sem RN é feature creep - quem pediu isso?"
+                        </div>
+                        <div class="example-display">
+                            "MUST > 50%? Seu projeto vai sofrer"
+                        </div>
+                        <div class="example-display">
+                            "Teste em 3 segundos: RF é testável? Se não, está vago"
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÃO DE IMPRESSÃO -->
+            <div style="text-align: center; margin-top: 40px;">
+                <button id="printBtn" class="print-button">🖨️ Imprimir Este Guia</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/infografico.js"></script>
+</body>
+</html>

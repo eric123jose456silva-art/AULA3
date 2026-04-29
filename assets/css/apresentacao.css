@@ -1,0 +1,390 @@
+/* ==========================================
+   ESTILOS APRESENTAÇÃO - Encontro 4
+   ========================================== */
+
+.presentation-controls {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-radius: 12px 12px 0 0;
+}
+
+.controls-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.slide-counter {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    background: rgba(255,255,255,0.1);
+    padding: 8px 16px;
+    border-radius: 6px;
+}
+
+.export-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.export-options .btn {
+    font-size: 0.9em;
+    padding: 10px 16px;
+}
+
+.slide-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: white;
+    border-radius: 0 0 12px 12px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 60px 80px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    pointer-events: none;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+.slide.title-slide {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.slide.section-slide {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    text-align: center;
+    justify-content: center;
+}
+
+.slide.content-slide {
+    background: white;
+    color: #333;
+}
+
+.slide h1 {
+    font-size: 3.5em;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    color: white;
+}
+
+.slide h2 {
+    font-size: 2.8em;
+    margin-bottom: 30px;
+}
+
+.slide.content-slide h2 {
+    color: #667eea;
+}
+
+.slide h3 {
+    font-size: 1.8em;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    color: #667eea;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.slide p, .slide li {
+    font-size: 1.3em;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.slide ul, .slide ol {
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.slide li {
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    font-size: 1.8em;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 50px;
+}
+
+.subtitle-small {
+    font-size: 1.2em;
+    margin-top: 20px;
+    color: rgba(255,255,255,0.8);
+}
+
+.slide-number {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-size: 1.2em;
+    color: #999;
+}
+
+.content-slide .slide-number {
+    color: #667eea;
+}
+
+.highlight {
+    background: #fff9c4;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.diagram {
+    background: #f5f5f5;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px 0;
+    font-family: 'Courier New', monospace;
+    border: 2px dashed #667eea;
+}
+
+.example-box {
+    background: #e3f2fd;
+    border-left: 5px solid #2196F3;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 5px;
+}
+
+.example-box strong {
+    color: #1976D2;
+}
+
+.moscow-box {
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border-left: 5px solid;
+}
+
+.moscow-must {
+    background: #ffebee;
+    border-color: #f44336;
+}
+
+.moscow-should {
+    background: #fff3e0;
+    border-color: #ff9800;
+}
+
+.moscow-could {
+    background: #f3e5f5;
+    border-color: #9c27b0;
+}
+
+.moscow-wont {
+    background: #e8f5e9;
+    border-color: #4caf50;
+}
+
+.moscow-box strong {
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.req-card {
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    border: 2px solid #667eea;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.req-card strong {
+    color: #667eea;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.two-column {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.two-column > div {
+    flex: 1;
+}
+
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 50px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: #667eea;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 20px;
+    width: 2px;
+    height: 30px;
+    background: #ddd;
+}
+
+.timeline-item:last-child::after {
+    display: none;
+}
+
+.comparison-box {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.comparison-item {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f5f5f5;
+}
+
+.comparison-item.before {
+    border-left: 5px solid #f44336;
+}
+
+.comparison-item.after {
+    border-left: 5px solid #4CAF50;
+}
+
+.comparison-item strong {
+    color: #667eea;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.task-list {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.task-list li {
+    background: white;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 4px solid #667eea;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+@media (max-width: 1200px) {
+    .slide {
+        padding: 40px 50px;
+    }
+
+    .slide h1 {
+        font-size: 2.5em;
+    }
+
+    .slide h2 {
+        font-size: 2em;
+    }
+
+    .requirements-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .two-column {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .slide {
+        padding: 30px 20px;
+    }
+
+    .slide h1 {
+        font-size: 1.8em;
+    }
+
+    .slide h2 {
+        font-size: 1.4em;
+    }
+
+    .slide h3 {
+        font-size: 1.2em;
+    }
+
+    .slide p, .slide li {
+        font-size: 1em;
+    }
+
+    .slide-container {
+        aspect-ratio: auto;
+        min-height: 600px;
+    }
+
+    .presentation-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .controls-group {
+        width: 100%;
+        justify-content: space-around;
+    }
+}
